@@ -1,0 +1,26 @@
+\contentsline {section}{Zadanie 1}{3}
+\contentsline {subsection}{Opis problemu}{3}
+\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{3}
+\contentsline {subsection}{Testy}{3}
+\contentsline {section}{Zadanie 2}{4}
+\contentsline {subsection}{Opis problemu}{4}
+\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{4}
+\contentsline {subsection}{Testy}{5}
+\contentsline {section}{Zadanie 3}{5}
+\contentsline {subsection}{Opis problemu}{5}
+\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{6}
+\contentsline {subsection}{Testy}{6}
+\contentsline {section}{Zadanie 4}{7}
+\contentsline {subsection}{Opis problemu}{7}
+\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{7}
+\contentsline {subsection}{Testy}{8}
+\contentsline {section}{Zadanie 5}{9}
+\contentsline {subsection}{Opis problemu}{9}
+\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{9}
+\contentsline {subsection}{Wyniki}{9}
+\contentsline {subsection}{Wnioski}{11}
+\contentsline {section}{Zadanie 6}{11}
+\contentsline {subsection}{Opis problemu}{11}
+\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{12}
+\contentsline {subsection}{Wyniki}{12}
+\contentsline {subsection}{Wnioski}{14}

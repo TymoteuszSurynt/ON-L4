@@ -2,7 +2,7 @@
 module ObliczeniaNaukowe4
     using Plots
     plotly()
-    export GlobalPrec, ilorazyRoznicowe, warNewton, naturalna, rysujNnfx, test
+    export GlobalPrec, ilorazyRoznicowe, warNewton, naturalna, rysujNnfx, test, test2
     GlobalPrec=100
     #Metoda licząca ilorazy różnicowe.
     #x: Vector{Float64} - tablica zawierająca wartości węzłów x_0, x_1, x_2, ...
@@ -43,7 +43,7 @@ module ObliczeniaNaukowe4
     #fx::Vector{Float64} - tablica zawierająca wartości ilorazów różnicowych f(x_0), f(x_0,x_1),...
     function naturalna(x::Vector{Float64}, fx::Vector{Float64})
         size=length(x)
-        a=Array(Float64,size);
+        a=Array(Float64,size)
         a[size]=fx[size]
         i=size-1
         while i >0
@@ -51,7 +51,7 @@ module ObliczeniaNaukowe4
             for j in i:size-1
                 a[j]=a[j]-x[i]*a[j+1]
             end
-            i=i-1;
+            i=i-1
         end
         return a
     end
@@ -61,37 +61,64 @@ module ObliczeniaNaukowe4
     #b::Float64 - koniec przedziału
     #n::Int - stopień wielomianu interpolacyjnego
     function rysujNnfx(f,a::Float64,b::Float64,n::Int)
-        prec = (b-a)/n;
-        x = Array(Float64, n + 1);
-        fx = Array(Float64, n + 1);
+        prec = (b-a)/n
+        x = Array(Float64, n + 1)
+        fx = Array(Float64, n + 1)
 
-        for i=0 : n
-          x[i+1] = a+i*prec;
-          fx[i+1] = f(x[i+1]);
+        for i in 0 : n
+          x[i+1] = a+i*prec
+          fx[i+1] = f(x[i+1])
         end
 
-        fn = ilorazyRoznicowe(x, fx);
-        outputFun = Array(Float64, GlobalPrec);
-        outputInt = Array(Float64, GlobalPrec);
-        prec=(b-a)/GlobalPrec;
+        fn = ilorazyRoznicowe(x, fx)
+        outputFun = Array(Float64, GlobalPrec)
+        outputInt = Array(Float64, GlobalPrec)
+        array = Array(Float64, GlobalPrec)
+        prec=(b-a)/GlobalPrec
         for i in 0:GlobalPrec-1
           t=a+i*prec;
-          outputInt[i+1] = warNewton(x,fn,t);
-          outputFun[i+1] = f(t);
+          outputInt[i+1] = warNewton(x,fn,t)
+          outputFun[i+1] = f(t)
+          array[i+1]=t
+        end
+        plot(array,[outputFun , outputInt], label=["Wynik dla funkcji" "Wynik dla interpolacji"])
+    end
+    function test(x,y,j:: Int,prec)
+        if length(x) != length(y)
+            @printf "Test %d niezadny!\nWynik poprawny:\n" j
+            println(y)
+            println("Wynik otrzymany:")
+            println(x)
+            return 0
+        end
+        for i in 1:length(x)
+            if abs(x[i] - y[i])>=prec
+                @printf "Test %d niezadny!\nWynik poprawny:\n" j
+                @printf "%.10lf\n" y[i]
+                println("Wynik otrzymany:")
+                @printf "%.10lf\n" x[i]
+                return 0
+            end
+        end
+        @printf "Test %d zadny!\n" j
+        println("Otrzymana wartość:")
+        println(x)
+        return 1
+    end
+    function test2(x,y,j:: Int,prec)
+        if abs(x - y)>=prec
+            @printf "Test %d niezadny!\nWynik poprawny:\n" j
+            println(y)
+            println("Wynik otrzymany:")
+            println(x)
+            return 0
+            else
+            @printf "Test %d zadny!\n" j
+            println("Otrzymana wartość:")
+            println(x)
+            return 1
+
         end
 
-        plot([1:GlobalPrec],[outputFun , outputInt], label=["Wynik dla funkcji" "Wynik dla interpolacji"])
-    end
-    function test(x,y,i:: Int)
-        if x==y
-            @printf "Test %d zadny!\n" i;
-            println("Otrzymana wartość:");
-            println(x);
-        else
-            @printf "Test %d niezadny!\nWynik poprawny:\n" i;
-            println(y);
-            println("Wynik otrzymany:");
-            println(x);
-        end
     end
 end
