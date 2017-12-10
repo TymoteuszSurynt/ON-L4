@@ -83,6 +83,11 @@ module ObliczeniaNaukowe4
         end
         plot(array,[outputFun , outputInt], label=["Wynik dla funkcji" "Wynik dla interpolacji"])
     end
+    #Funkcja pozwalająca testować zadanie 1 i 3
+    #x - tablica z wynikami funkcji, którą sprawdzamy
+    #y - tablica z rzeczywistymi wynikami
+    #j:: Int - numer test, potrzebny do poprawnego wyświetlania wyniku
+    #prec - precyzja
     function test(x,y,j:: Int,prec)
         if length(x) != length(y)
             @printf "Test %d niezadny!\nWynik poprawny:\n" j
@@ -105,6 +110,11 @@ module ObliczeniaNaukowe4
         println(x)
         return 1
     end
+    #Funkcja pozwalająca testować zadanie 2
+    #x - wynik funkcji, którą sprawdzamy
+    #y -rzeczywisty wynik
+    #j:: Int - numer test, potrzebny do poprawnego wyświetlania wyniku
+    #prec - precyzja
     function test2(x,y,j:: Int,prec)
         if abs(x - y)>=prec
             @printf "Test %d niezadny!\nWynik poprawny:\n" j
