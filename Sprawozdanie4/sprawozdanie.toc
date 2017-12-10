@@ -12,15 +12,15 @@
 \contentsline {subsection}{Testy}{6}
 \contentsline {section}{Zadanie 4}{7}
 \contentsline {subsection}{Opis problemu}{7}
-\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{7}
+\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{8}
 \contentsline {subsection}{Testy}{8}
-\contentsline {section}{Zadanie 5}{9}
-\contentsline {subsection}{Opis problemu}{9}
-\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{9}
-\contentsline {subsection}{Wyniki}{9}
-\contentsline {subsection}{Wnioski}{11}
-\contentsline {section}{Zadanie 6}{11}
-\contentsline {subsection}{Opis problemu}{11}
-\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{12}
-\contentsline {subsection}{Wyniki}{12}
-\contentsline {subsection}{Wnioski}{14}
+\contentsline {section}{Zadanie 5}{10}
+\contentsline {subsection}{Opis problemu}{10}
+\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{10}
+\contentsline {subsection}{Wyniki}{10}
+\contentsline {subsection}{Wnioski}{12}
+\contentsline {section}{Zadanie 6}{12}
+\contentsline {subsection}{Opis problemu}{12}
+\contentsline {subsection}{Opis rozwi\IeC {\k a}zania}{13}
+\contentsline {subsection}{Wyniki}{13}
+\contentsline {subsection}{Wnioski}{15}

@@ -33,7 +33,7 @@ module ObliczeniaNaukowe4
         reszta=fx[size]
         i=size-1
         while i>0
-            reszta=reszta * (t-x[i]) + fx[i]
+            reszta=fx[i] + reszta * (t-x[i])
             i=i-1;
         end
         return reszta

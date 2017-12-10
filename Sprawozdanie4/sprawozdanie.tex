@@ -160,7 +160,7 @@ Celem zadania było stworzenie funkcji, która będzie w stanie wyliczać iloraz
  \caption{Ilorazy Różnicowe}
 \end{algorithm}
 \vspace{3mm}
-Powyższy algorytm opiera się na własności iloczynu różnicowego: $f[x_0,x_1,x_2,\ldots,x_n]=\frac{f[x_1,x_2,\ldots,x_n]-f[x_0,x_1,\ldots,x_{n-1}]}{x_n-x_0}$ z której łatwo da się zauważyć, że kolejny iloczyn można szybko wyliczyć mając poprzedni. Jako, że wszystkie iloczyny są zapisywane w tablicy, dostęp do poprzednich nie jest problemem, jednak każda zmiana przy wyliczeniu iloczynu powoduje szereg zmian w następnych iloczynch. Żeby to poprawić występuje druga pętla, while, które umożliwia poprawianie wyników. Zmiany istnieją, ponieważ $f[x_1,x_2,\ldots,x_n]$ jest wyliczane na bieżąco.\\
+Powyższy algorytm opiera się na własności iloczynu różnicowego: $f[x_0,x_1,x_2,\ldots,x_n]=\frac{f[x_1,x_2,\ldots,x_n]-f[x_0,x_1,\ldots,x_{n-1}]}{x_n-x_0}$ z której łatwo da się zauważyć, że kolejny iloczyn można szybko wyliczyć mając poprzedni. Jako, że wszystkie iloczyny są zapisywane w tablicy, dostęp do poprzednich nie jest problemem, jednak każda zmiana przy wyliczeniu iloczynu powoduje szereg zmian w następnych iloczynach. Żeby to poprawić występuje druga pętla, while, które umożliwia poprawianie wyników. Zmiany istnieją, ponieważ $f[x_1,x_2,\ldots,x_n]$ jest wyliczane na bieżąco.\\
 
 %wyniki
 \subsection{Testy}
@@ -173,7 +173,8 @@ Wynik właściwy:
 Wynik otrzymany:
  $$[-1.0, -4.0, 5.5, -2.83333, 0.804167, -0.1275, 0.00402778]$$
  Test zdany
- \item Test 2:$$ilorazyRoznicowe([1.0,10.0,20.0,30.0,40.0,50.0,60.0],[-1.202,111.0,-4.44122,12.0,-0.3222113,0.15,10.3])$$
+ \item Test 2:
+ $$ilorazyRoznicowe([1.0,10.0,20.0,30.0,40.0,50.0,60.0],[-1.202,111.0,-4.44122,12.0,-0.3222113,0.15,10.3])$$
 Wynik właściwy:
  $$[-1.202, 12.4668888889, -1.26374, 0.0663155, -0.00238692, 0.0000659068, 0]$$
 Wynik otrzymany:
@@ -216,14 +217,16 @@ w postaci Newtona, dla podanego punktu.
 	$reszta \leftarrow fx[size]$\;
 	$i \leftarrow size-1$\;
 	\While{$i>0$}{
-		$reszta \leftarrow reszta*(t-x[i])+fx[i]$\;
+		$reszta \leftarrow fx[i] + reszta*(t-x[i])$\;
 		$i \leftarrow i-1$\;
 	}
 	\KwRet{$reszta$}
  \caption{Algorytm Hornera dla wielomianu w postaci Newton}
 \end{algorithm}
 \vspace{3mm}
-Powyższy algorytm działa w myśl uogólnionego algorytmu Hornera, jednak uwzględnia postać Newtona. Pierwsza wartość (w tym wypadku znajduje się na końcu tablicy, ponieważ ta postać zakłada, że największa potęga znajduje się na końcu) zostaje bez zmian, kolejne uzyskuje się przez dodanie do współczynika z oryginalnej funckji, poprzedniej wartości pomnożonej przez różnicę miejsca w którym szukamy wartości i wartości $x_i$ (dla normlanego wielomianu byłoby po prostu t). Ostatnia wartość jak i w algorytmie Hornera jest poszukiawną wartością.
+Powyższy algorytm działa w myśl uogólnionego algorytmu Hornera. Pierwsza wartość (w tym wypadku znajduje się na końcu tablicy, ponieważ ta postać zakłada, że największa potęga znajduje się na końcu) zostaje bez zmian ($w_n(x)=f[x_0,x_1,\ldots,x_n]$), kolejne uzyskuje się przez dodanie do współczynnika z oryginalnej funkcji, poprzedniej wartości pomnożonej przez różnicę miejsca w którym szukamy wartości i wartości $x_i$ ($w_k(x)=f[x_0,x_1,\ldots, x_k] + (x-x_k)w_{k+1}(x)$). Ostatnia wartością to poszukiwana wartość funkcji w punkcie.
+
+Złożoność obliczeniowa: $O(n)$, gdzie n to długość wektora x. Ta złożoność wynika z tego, że obliczenia są prowadzone w jednej pętli, która się wykonuje dokładnie length(x), czyli nasze n, razy.
 %wyniki
 \subsection{Testy}
 Testy dla powyższej funkcji były przeprowadzane w następujący sposób:
@@ -258,7 +261,7 @@ Wynik otrzymany:
 \begin{homeworkProblem}
 %opis problemu
 \subsection{Opis problemu}
-Celem zadania było stworzenie funkcji, która będzie w stanie znajdować współczyniki wielomianu interpolacyjnego w postaci Newtona.
+Celem zadania było stworzenie funkcji, która będzie w stanie znajdować współczynniki naturalne wielomianu interpolacyjnego w postaci Newtona.
 %opis rozwiązania
 \subsection{Opis rozwiązania}
 \begin{algorithm}[H]
@@ -288,6 +291,10 @@ Celem zadania było stworzenie funkcji, która będzie w stanie znajdować wspó
  \caption{Współczynniki postaci naturalnej}
 \end{algorithm}
 \vspace{3mm}
+W tym algorytmie również zastosujemy własności uogólnionego algorytmu Hornera. Najpierw skorzystamy z faktu, że wielomiany pomocnicze z algorytmu Hornera, można zapisać w postaci naturalnej, oraz wiemy, że $w_n(x)=f[x_0,x_1,\ldots,x_n]$ co mamy podane przez użytkownika. Dalej wiemy, że $w_i(x)=f[x_0,x_1,\ldots,x_i]-x_iw_{i+1}(x)$, ponieważ nasz wzór jest określany rekurencyjnie, to co obliczenie nowego współczynnika na wszystkie poprzednie musimy nanieść zmiany. Łatwo można to zauważyć rozwijając wzór:$$a_i= f[x_0,x_1,\ldots,x_i]+(x-x_i)w_{i+1}$$
+$$a_i=f[x_0,x_1,\ldots,x_i]+(x-x_i)(c_0 + c_1x +\ldots)$$
+$$a_i=f[x_0,x_1,\ldots,x_i]+(c_0x + c_1x^2 +\ldots)-(c_0x_i - c_1x*x_i -\ldots)$$
+$$a_i=f[x_0,x_1,\ldots,x_i]+x_ic_0+(c_0-c_1x_i)x +\ldots$$
 
 %wyniki
 \subsection{Testy}
@@ -338,7 +345,7 @@ Celem zadania było stworzenie funkcji, która będzie w stanie rysować wykresy
  }
  \SetKwInput{KwResult}{Wynik}
  \KwResult{
-	Wykres z zaznaczonymi funkcjiami
+	Wykres z zaznaczonymi funkcjami
  }
  \SetKwInput{TitleOfAlgo}{Funkcja}
  \TitleOfAlgo{rysujNnfx(f,a::Float64,b::Float64,n::Int)}
@@ -366,10 +373,10 @@ Celem zadania było stworzenie funkcji, która będzie w stanie rysować wykresy
  \caption{Rysowanie wykresów funkcji}
 \end{algorithm}
 \vspace{3mm}
-Powyższa funkcja w pierwszej kolejności dzieli przedział na ilość węzłów interpolacji aby punkty były równomiernie rozrzucone i   wylicza $x_0,x_1,\ldots$ oraz wartości funkcji w tych punktach. Dla wcześniej obliczonych danych wykonuje fukcję opisaną w Zadaniu 1, która oblicza ilorazy różnicowe. Następnie przygotowuje dwie tablice w których będą zapisywane wyniki pod wyświetlanie ich na wykresie. Po wyliczeniu kroku co który będą wyliczane wartości, wykonuje się pętla w której owe wartości są wyliczane. Dla wielomianu interplacyjnego są one wyliczane funcją z Zadania 2. Na sam koniec uzyskane wyniki są prezentowane na wykresie używając pakietu Plots i Plotly.
+Powyższa funkcja w pierwszej kolejności dzieli przedział na ilość węzłów interpolacji aby punkty były równomiernie rozrzucone i   wylicza $x_0,x_1,\ldots$ oraz wartości funkcji w tych punktach. Dla wcześniej obliczonych danych wykonuje funkcję opisaną w Zadaniu 1, która oblicza ilorazy różnicowe. Następnie przygotowuje dwie tablice w których będą zapisywane wyniki pod wyświetlanie ich na wykresie. Po wyliczeniu kroku co który będą wyliczane wartości, wykonuje się pętla w której owe wartości są wyliczane. Dla wielomianu interpolacyjnego są one wyliczane funkcją z Zadania 2. Na sam koniec uzyskane wyniki są prezentowane na wykresie używając pakietu Plots i Plotly.
 %wyniki
 \subsection{Testy}
-W tym przypadku przeprowadzenie testów było bardzo trudne, a odpowiednie testy na bardziej zaawanoswoanych przykładach będą przeprowadzane w zadaniu 5 i 6, więc w tej części porównam tylko czy wykres funkcji (nie wielomianu) podanej przez naszą funkcje będzie podobny do takiego narysowanego przez niezależny program do generownania wykresów.
+W tym przypadku przeprowadzenie testów było bardzo trudne, a odpowiednie testy na bardziej zaawansowanych przykładach będą przeprowadzane w zadaniu 5 i 6, więc w tej części porównam tylko czy wykres funkcji (nie wielomianu) podanej przez naszą funkcje będzie podobny do takiego narysowanego przez niezależny program do generowania wykresów.
 \begin{center}
 	Wykres wykonany przez naszą funkcję:\\
 	\includegraphics[scale=0.5]{sinx.png}\\
@@ -395,7 +402,7 @@ Zadanie polegało na narysowaniu wykresów poprzez skorzystanie z funkcji napisa
 \end{enumerate}
 %opis rozwiązania
 \subsection{Opis rozwiązania}
-Korzystam z uprzednio napisanej funckji poprzez uruchomienie jej z podanymi parametrami.
+Korzystam z uprzednio napisanej funkcji poprzez uruchomienie jej z podanymi parametrami.
 %wyniki
 \subsection{Wyniki}
 \begin{center}
@@ -415,7 +422,7 @@ Wynik dla podpunktu 2. z n=15\\
 
 %wnioski
 \subsection{Wnioski}
-Łatwo da się zauważyć, że oba wykresy funkcji są do siebie bardzo zbliżone i nawet jeśli różnice istnieją to są ona pomijalnie miałe.\\
+Łatwo da się zauważyć, że oba wykresy funkcji są do siebie bardzo zbliżone i nawet jeśli różnice istnieją to są ona pomijanie małe.\\
 \begin{center}
 \includegraphics[scale=0.5]{5/5zoom.png}\\
 \end{center}
@@ -439,7 +446,7 @@ Zadanie polegało na narysowaniu wykresów poprzez skorzystanie z funkcji napisa
 \end{enumerate}
 %opis rozwiązania
 \subsection{Opis rozwiązania}
-Korzystam z uprzednio napisanej funckji poprzez uruchomienie jej z podanymi parametrami.
+Korzystam z uprzednio napisanej funkcji poprzez uruchomienie jej z podanymi parametrami.
 %wyniki
 \subsection{Wyniki}
 \begin{center}
@@ -447,7 +454,9 @@ Wynik dla podpunktu 1. z n=5\\
 \includegraphics[scale=0.5]{6/a5.png}\\
 Wynik dla podpunktu 1. z n=10\\
 \includegraphics[scale=0.5]{6/a10.png}\\
+\newpage
 Wynik dla podpunktu 1. z n=15\\
+
 \includegraphics[scale=0.5]{6/a15.png}\\
 Wynik dla podpunktu 2. z n=5\\
 \includegraphics[scale=0.5]{6/b5.png}\\
@@ -459,7 +468,7 @@ Wynik dla podpunktu 2. z n=15\\
 %wnioski
 \subsection{Wnioski}
 
-W pierwszym jak i w drugim przypadku, łatwo da się zauważyć, że niedokładność wielomianu interpolacyjnego są dość znaczące i rosną wraz z n. Wynika to z faktu, że węzły są rozłożone równomiernie i na końcach przedziału zachodzi efekt Rungr'go. Przez to da się zaobserwować niechcianą "falę". Aby uniknąć tego problemu należałoby zwiększyć ilość węzłów na krańcach przedziału, sprawiając, że węzły nie byłyby już równoodległe od siebie. Do wyznaczania takich węzłów mogłby nam posłużyć zera wielomianu Czebyszewa. 
+W pierwszym jak i w drugim przypadku, łatwo da się zauważyć, że niedokładność wielomianu interpolacyjnego są dość znaczące i rosną wraz z n. Wynika to z faktu, że węzły są rozłożone równomiernie i na końcach przedziału zachodzi efekt Rungre'go. Przez to da się zaobserwować niechcianą "falę". Aby uniknąć tego problemu należałoby zwiększyć ilość węzłów na krańcach przedziału, sprawiając, że węzły nie byłyby już równo odległe od siebie. Do wyznaczania takich węzłów mogłyby nam posłużyć zera wielomianu Czebyszewa, które zminimalizowałyby błąd interpolacyjny i zarazem wykres stał by się bardziej podobny do rzeczywistego. 
 
 \end{homeworkProblem}
 
